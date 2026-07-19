@@ -1,0 +1,18 @@
+{
+  "name": "revenue-os",
+  "version": "1.0.0",
+  "private": true,
+  "description": "RevenueFlow - Autonomous Payment Recovery Platform",
+  "author": "RevenueFlow",
+  "license": "MIT",
+  "scripts": {
+    "dev": "echo \"Backend and Frontend setup coming next\"",
+    "build": "echo \"Build process coming soon\"",
+    "start": "echo \"Start process coming soon\"",
+    "lint": "echo \"Lint configuration coming soon\"",
+    "test": "echo \"Test configuration coming soon\""
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}
