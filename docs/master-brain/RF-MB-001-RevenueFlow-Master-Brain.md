@@ -1204,3 +1204,221 @@ No future engine may weaken the existing architecture.
 ---
 
 # End of Part 2.1
+
+# Part 2.2
+
+# Engine Hierarchy & Communication Architecture
+
+---
+
+# Introduction
+
+RevenueFlow is built on a hierarchical engine architecture.
+
+Every engine has one clearly defined responsibility.
+
+No engine is allowed to perform another engine's responsibility.
+
+The objective of this architecture is to achieve:
+
+• Predictability
+
+• Modularity
+
+• Security
+
+• Scalability
+
+• Replaceability
+
+• Long-term maintainability
+
+---
+
+# Official Engine Hierarchy
+
+The Master Brain governs all platform engines.
+
+The official hierarchy is:
+
+Master Brain
+
+├── Workflow Engine
+
+├── Rule Engine
+
+├── Decision Engine
+
+├── Memory Engine
+
+├── Event Engine
+
+├── Automation Engine
+
+├── Agent Engine
+
+├── Security Engine
+
+├── Audit Engine
+
+└── Integration Engine
+
+Every engine reports to the Master Brain.
+
+No engine has authority over another engine unless explicitly defined by the Master Brain.
+
+---
+
+# Engine Independence
+
+Every engine must remain independent.
+
+An engine owns only one primary responsibility.
+
+Examples:
+
+• Workflow Engine owns workflows.
+
+• Rule Engine owns business rules.
+
+• Decision Engine owns decision evaluation.
+
+• Memory Engine owns historical intelligence.
+
+• Event Engine owns platform events.
+
+• Automation Engine owns automation execution.
+
+• Agent Engine owns AI agents.
+
+• Security Engine owns security validation.
+
+• Audit Engine owns audit history.
+
+• Integration Engine owns third-party communication.
+
+Responsibilities must never overlap.
+
+---
+
+# Communication Model
+
+Engines communicate through governed communication.
+
+Communication must always be:
+
+• Authorized
+
+• Validated
+
+• Logged
+
+• Secure
+
+• Predictable
+
+Unauthorized engine communication is prohibited.
+
+---
+
+# Communication Authority
+
+The Master Brain defines:
+
+• Which engine may initiate communication.
+
+• Which engine may receive communication.
+
+• Which engine must validate communication.
+
+• Which engine records communication.
+
+No engine creates its own communication rules.
+
+---
+
+# Communication Restrictions
+
+The following actions are prohibited:
+
+• Direct modification of another engine's internal state.
+
+• Bypassing Rule Engine.
+
+• Bypassing Security Engine.
+
+• Bypassing Audit logging.
+
+• Creating hidden communication channels.
+
+• Executing another engine's responsibility.
+
+Violation of these principles breaks platform architecture.
+
+---
+
+# Engine Lifecycle
+
+Every engine follows the same lifecycle.
+
+1. Receive request.
+
+2. Validate request.
+
+3. Execute own responsibility.
+
+4. Return result.
+
+5. Publish events when required.
+
+6. Record audit information when applicable.
+
+7. Wait for the next approved request.
+
+This lifecycle ensures consistent platform behaviour.
+
+---
+
+# Architectural Rule
+
+No future engine may communicate outside the approved architecture.
+
+Every new engine introduced into RevenueFlow must:
+
+• Have one responsibility.
+
+• Integrate through Master Brain governance.
+
+• Follow communication rules.
+
+• Respect security policies.
+
+• Support auditability.
+
+• Remain replaceable.
+
+---
+
+# Transition to Part 2.3
+
+The engine hierarchy has now been defined.
+
+The next section will define the communication relationships between engines.
+
+It will specify:
+
+• Which engine can talk to which engine.
+
+• Which communication is one-way.
+
+• Which communication is two-way.
+
+• Which communication requires approval.
+
+• Which communication is prohibited.
+
+This communication map will become the foundation of the RevenueFlow execution architecture.
+
+---
+
+# End of Part 2.2
