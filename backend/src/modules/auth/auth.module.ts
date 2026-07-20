@@ -6,8 +6,9 @@ import { AuthRepository } from './auth.repository';
 import { AuthService } from './auth.service';
 
 import { PasswordService } from './security/password.service';
-
 import { RevenueJwtService } from './jwt/jwt.service';
+
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -15,18 +16,21 @@ import { RevenueJwtService } from './jwt/jwt.service';
       secret: process.env.JWT_SECRET,
     }),
   ],
+
   controllers: [
     AuthController,
   ],
+
   providers: [
     AuthRepository,
     AuthService,
     PasswordService,
     RevenueJwtService,
+    JwtStrategy,
   ],
+
   exports: [
     AuthService,
-    PasswordService,
     RevenueJwtService,
   ],
 })
