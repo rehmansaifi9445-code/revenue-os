@@ -6,11 +6,15 @@ import {
 import { AuthRepository } from './auth.repository';
 import { RegisterDto } from './dto/register.dto';
 
+import { PasswordService } from './security/password.service';
+import { RevenueJwtService } from './jwt/jwt.service';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly authRepository: AuthRepository,
-  ) {}
+  private readonly authRepository: AuthRepository,
+  private readonly passwordService: PasswordService,
+  private readonly revenueJwtService: RevenueJwtService,
+) {}
 
   async register(registerDto: RegisterDto) {
     const existingUser =
