@@ -198,15 +198,16 @@ async refreshToken(
     },
   };
 }
-  async logout() {
-    // TODO:
-    // Delete Session
+  async logout(dto: RefreshTokenDto) {
+  await this.authRepository.deleteSession(
+    dto.refreshToken,
+  );
 
-    return {
-      success: true,
-      message: 'Logout successful.',
-    };
-  }
+  return {
+    success: true,
+    message: 'Logout successful.',
+  };
+}
 
   async forgotPassword() {
     // TODO:
