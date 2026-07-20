@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
-
+import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
