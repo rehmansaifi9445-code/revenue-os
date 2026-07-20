@@ -41,9 +41,11 @@ refresh(
   return this.authService.refreshToken(dto);
 }
   @Post('logout')
-  logout() {
-    return this.authService.logout();
-  }
+logout(
+  @Body() dto: RefreshTokenDto,
+) {
+  return this.authService.logout(dto);
+}
 
   @Post('forgot-password')
   forgotPassword(
