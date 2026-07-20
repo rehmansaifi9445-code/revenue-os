@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
@@ -12,7 +13,8 @@ import { LoginDto } from './dto/login.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
-
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { CurrentUser } from './decorators/current-user.decorator';
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -59,10 +61,10 @@ export class AuthController {
     return this.authService.changePassword();
   }
 
-  @Get('me')
-  me() {
-    return {
-      message: 'Current User'
-    };
-  }
+  @UseGuards(JwtAuthGuard)
+@Get('me')
+me(
+  @CurrentUser() user: any,
+) {
+  return user;
 }
