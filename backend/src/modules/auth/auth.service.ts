@@ -91,19 +91,74 @@ export class AuthService {
   };
 }
 
-  async login() {
-    // TODO:
-    // Verify User
-    // Verify Password
-    // Generate Access Token
-    // Generate Refresh Token
-    // Save Session
+  async login(loginDto: LoginDto) {
+  // 1. Find User
+  const user = await this.authRepository.findUserByMobile(
+    loginDto.mobileNumber,
+  );
 
-    return {
-      success: true,
-      message: 'Login successful.',
-    };
+  if (!user) {
+    throw new UnauthorizedException(
+      'Invalid mobile number or password.',
+    );
   }
+
+  // 2. Verify Password
+  const isPasswordValid =
+    await this.passwordService.verify(
+      user.passwordHash,
+      loginDto.password,
+    );
+
+  if (!isPasswordValid) {
+    throw new UnauthorizedException(
+      'Invalid mobile number or password.',
+    );
+  }
+
+  // 3. JWT Payload
+  const payload = {
+    sub: user.id,
+    mobileNumber: user.mobileNumber,
+  };
+
+  // 4. Generate Tokens
+  const accessToken =
+    this.revenueJwtService.generateAccessToken(
+      payload,
+    );
+
+  const refreshToken =
+    this.revenueJwtService.generateRefreshToken(
+      payload,
+    );
+
+  // 5. Create Session
+  const expiresAt = new Date();
+  expiresAt.setDate(expiresAt.getDate() + 30);
+
+  await this.authRepository.createSession(
+    user.id,
+    refreshToken,
+    expiresAt,
+  );
+
+  // 6. Response
+  return {
+    success: true,
+    message: 'Login successful.',
+    data: {
+      accessToken,
+      refreshToken,
+      user: {
+        id: user.id,
+        fullName: user.fullName,
+        businessName: user.businessName,
+        mobileNumber: user.mobileNumber,
+      },
+    },
+  };
+}
 
   async logout() {
     // TODO:
