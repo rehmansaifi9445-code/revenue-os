@@ -160,7 +160,44 @@ export class AuthService {
     },
   };
 }
+async refreshToken(
+  dto: RefreshTokenDto,
+) {
+  const session =
+    await this.authRepository.findSessionWithUser(
+      dto.refreshToken,
+    );
 
+  if (!session) {
+    throw new UnauthorizedException(
+      'Invalid refresh token.',
+    );
+  }
+
+  if (session.expiresAt < new Date()) {
+    throw new UnauthorizedException(
+      'Refresh token expired.',
+    );
+  }
+
+  const payload = {
+    sub: session.user.id,
+    mobileNumber: session.user.mobileNumber,
+  };
+
+  const accessToken =
+    this.revenueJwtService.generateAccessToken(
+      payload,
+    );
+
+  return {
+    success: true,
+    message: 'Token refreshed successfully.',
+    data: {
+      accessToken,
+    },
+  };
+}
   async logout() {
     // TODO:
     // Delete Session
