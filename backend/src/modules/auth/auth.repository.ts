@@ -100,7 +100,18 @@ export class AuthRepository {
       },
     });
   }
-
+ async findSessionWithUser(
+  refreshToken: string,
+) {
+  return this.prisma.session.findUnique({
+    where: {
+      refreshToken,
+    },
+    include: {
+      user: true,
+    },
+  });
+}
   async findSession(
     refreshToken: string,
   ) {
