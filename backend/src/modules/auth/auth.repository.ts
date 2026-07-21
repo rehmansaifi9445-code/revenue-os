@@ -251,7 +251,7 @@ async deletePasswordReset(
       },
     });
   }
-}
+
    async deletePasswordOtps(
   userId: string,
 ) {
