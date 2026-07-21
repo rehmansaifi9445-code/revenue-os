@@ -30,7 +30,7 @@ export class UserController {
   @Patch(':userId/profile')
   updateProfile(
     @Param('userId') userId: string,
-    @Body() dto: any,
+    @Body() dto: UpdateProfileDto, 
   ) {
     return this.userService.updateProfile(
       userId,
@@ -45,7 +45,7 @@ export class UserController {
   @Patch(':userId/business')
   updateBusiness(
     @Param('userId') userId: string,
-    @Body() dto: any,
+    @Body() dto: UpdateBusinessDto,
   ) {
     return this.userService.updateBusiness(
       userId,
@@ -60,7 +60,7 @@ export class UserController {
   @Patch(':userId/settings')
   updateSettings(
     @Param('userId') userId: string,
-    @Body() dto: any,
+    @Body() dto: UpdateSettingsDto,
   ) {
     return this.userService.updateSettings(
       userId,
