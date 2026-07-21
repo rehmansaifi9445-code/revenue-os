@@ -31,8 +31,55 @@ export class AuthRepository {
       },
     });
   }
+ async createPasswordResetOtp(
+  userId: string,
+  otp: string,
+  expiresAt: Date,
+) {
+  return this.prisma.passwordResetOtp.create({
+    data: {
+      userId,
+      otp,
+      expiresAt,
+      verified: false,
+    },
+  });
+}
+ async deleteOldPasswordOtps(
+  userId: string,
+) {
+  return this.prisma.passwordResetOtp.deleteMany({
+    where: {
+      userId,
+    },
+  });
+}
+ async findValidPasswordOtp(
+  userId: string,
+  otp: string,
+) {
+  return this.prisma.passwordResetOtp.findFirst({
+    where: {
+      userId,
+      otp,
+      verified: false,
+    },
+  });
+} 
+ async verifyPasswordOtp(
+  id: string,
+) {
+  return this.prisma.passwordResetOtp.update({
+    where: {
+      id,
+    },
+    data: {
+      verified: true,
+    },
+  });
+}
 
-  async mobileExists(
+ async mobileExists(
     mobileNumber: string,
   ): Promise<boolean> {
     const user =
@@ -204,4 +251,13 @@ async deletePasswordReset(
       },
     });
   }
+}
+   async deletePasswordOtps(
+  userId: string,
+) {
+  return this.prisma.passwordResetOtp.deleteMany({
+    where: {
+      userId,
+    },
+  });
 }
