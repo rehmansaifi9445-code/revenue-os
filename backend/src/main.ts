@@ -23,7 +23,7 @@ async function bootstrap(): Promise<void> {
     credentials: true,
   });
 
-  const config = new DocumentBuilder()
+ const config = new DocumentBuilder()
   .setTitle('RevenueFlow API')
   .setDescription('RevenueFlow Backend API')
   .setVersion('1.0')
