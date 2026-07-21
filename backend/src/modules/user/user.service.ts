@@ -4,7 +4,9 @@ import {
 } from '@nestjs/common';
 
 import { UserRepository } from './user.repository';
-
+import { UpdateProfileDto } from './dto/update-profile.dto';
+import { UpdateBusinessDto } from './dto/update-business.dto';
+import { UpdateSettingsDto } from './dto/update-settings.dto';
 @Injectable()
 export class UserService {
   constructor(
@@ -37,7 +39,7 @@ export class UserService {
 
   async updateProfile(
     userId: string,
-    dto: any,
+    dto: UpdateProfileDto,
   ) {
     const user =
       await this.userRepository.updateProfile(
@@ -59,7 +61,7 @@ export class UserService {
 
   async updateBusiness(
     userId: string,
-    dto: any,
+    dto: UpdateBusinessDto,
   ) {
     const business =
       await this.userRepository.updateBusiness(
@@ -81,7 +83,7 @@ export class UserService {
 
   async updateSettings(
     userId: string,
-    dto: any,
+    dto: UpdateSettingsDto,
   ) {
     const settings =
       await this.userRepository.updateSettings(
