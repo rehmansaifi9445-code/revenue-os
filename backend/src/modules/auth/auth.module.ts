@@ -27,6 +27,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     PasswordService,
     RevenueJwtService,
     JwtStrategy,
+    OtpService,
   ],
 
   exports: [
