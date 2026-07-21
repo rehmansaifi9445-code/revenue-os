@@ -5,11 +5,17 @@ import {
   Param,
   Patch,
 } from '@nestjs/common';
-
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { GetUser } from '../auth/decorators/get-user.decorator';
+import { UpdateProfileDto } from './dto/update-profile.dto';
+import { UpdateBusinessDto } from './dto/update-business.dto';
+import { UpdateSettingsDto } from './dto/update-settings.dto';
+import { UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 
 @Controller('users')
-export class UserController {
+@UseGuards(JwtAuthGuard)
+  export class UserController {
   constructor(
     private readonly userService: UserService,
   ) {}
