@@ -6,7 +6,8 @@ import { LoginDto } from './dto/login.dto';
 import { UnauthorizedException } from '@nestjs/common';
 import { AuthRepository } from './auth.repository';
 import { RegisterDto } from './dto/register.dto';
-
+import { NotFoundException } from '@nestjs/common';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { PasswordService } from './security/password.service';
 import { RevenueJwtService } from './jwt/jwt.service';
 @Injectable()
@@ -209,15 +210,48 @@ async refreshToken(
   };
 }
 
-  async forgotPassword() {
-    // TODO:
-    // Generate OTP
-    // Send SMS
+  async forgotPassword(
+  dto: ForgotPasswordDto,
+) {
+  const user =
+    await this.authRepository.findUserByMobile(
+      dto.mobileNumber,
+    );
 
-    return {
-      success: true,
-    };
+  if (!user) {
+    throw new NotFoundException(
+      'User not found.',
+    );
   }
+
+  await this.authRepository.deletePasswordOtps(
+    user.id,
+  );
+
+  const otp = Math.floor(
+    100000 + Math.random() * 900000,
+  ).toString();
+
+  const expiresAt = new Date();
+  expiresAt.setMinutes(
+    expiresAt.getMinutes() + 10,
+  );
+
+  await this.authRepository.createPasswordResetOtp(
+    user.id,
+    otp,
+    expiresAt,
+  );
+
+  // TODO:
+  // Send OTP through SMS Provider
+
+  return {
+    success: true,
+    message:
+      'OTP sent successfully.',
+  };
+}
 
   async resetPassword() {
     // TODO:
