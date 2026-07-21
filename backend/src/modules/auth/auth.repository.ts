@@ -35,19 +35,6 @@ export class AuthRepository {
     },
   });
 }
- async findUserByIdWithPassword(
-  userId: string,
-) {
-  return this.prisma.user.findUnique({
-    where: {
-      id: userId,
-    },
-    select: {
-      id: true,
-      passwordHash: true,
-    },
-  });
-}
   async findUserByMobile(
     mobileNumber: string,
   ) {
