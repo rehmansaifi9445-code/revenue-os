@@ -8,6 +8,8 @@ import { AuthRepository } from './auth.repository';
 import { RegisterDto } from './dto/register.dto';
 import { NotFoundException } from '@nestjs/common';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { UnauthorizedException } from '@nestjs/common';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 import { PasswordService } from './security/password.service';
 import { RevenueJwtService } from './jwt/jwt.service';
 @Injectable()
@@ -253,15 +255,51 @@ async refreshToken(
   };
 }
 
-  async resetPassword() {
-    // TODO:
-    // Verify OTP
-    // Update Password
+  async resetPassword(
+  dto: ResetPasswordDto,
+) {
+  const otp =
+    await this.authRepository.findValidPasswordOtp(
+      dto.userId,
+      dto.otp,
+    );
 
-    return {
-      success: true,
-    };
+  if (!otp) {
+    throw new UnauthorizedException(
+      'Invalid OTP.',
+    );
   }
+
+  if (otp.expiresAt < new Date()) {
+    throw new UnauthorizedException(
+      'OTP expired.',
+    );
+  }
+
+  const passwordHash =
+    await this.passwordService.hashPassword(
+      dto.newPassword,
+    );
+
+  await this.authRepository.updatePassword(
+    dto.userId,
+    passwordHash,
+  );
+
+  await this.authRepository.verifyPasswordOtp(
+    otp.id,
+  );
+
+  await this.authRepository.deletePasswordOtps(
+    dto.userId,
+  );
+
+  return {
+    success: true,
+    message:
+      'Password reset successful.',
+  };
+}
 
   async changePassword() {
     // TODO:
