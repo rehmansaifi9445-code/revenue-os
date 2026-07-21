@@ -4,7 +4,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
 import { AuthRepository } from './auth.repository';
 import { AuthService } from './auth.service';
-
+import { OtpService } from './otp.service';
 import { PasswordService } from './security/password.service';
 import { RevenueJwtService } from './jwt/jwt.service';
 
