@@ -83,6 +83,46 @@ export class AuthRepository {
     });
   }
 
+  async savePasswordResetOtp(
+  mobileNumber: string,
+  otp: string,
+  expiresAt: Date,
+) {
+  return this.prisma.passwordReset.upsert({
+    where: {
+      mobileNumber,
+    },
+    update: {
+      otp,
+      expiresAt,
+    },
+    create: {
+      mobileNumber,
+      otp,
+      expiresAt,
+    },
+  });
+}
+
+async findPasswordReset(
+  mobileNumber: string,
+) {
+  return this.prisma.passwordReset.findUnique({
+    where: {
+      mobileNumber,
+    },
+  });
+}
+
+async deletePasswordReset(
+  mobileNumber: string,
+) {
+  return this.prisma.passwordReset.deleteMany({
+    where: {
+      mobileNumber,
+    },
+  });
+}
   // ==========================
   // SESSION METHODS
   // ==========================
