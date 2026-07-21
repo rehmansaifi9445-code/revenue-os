@@ -301,13 +301,44 @@ async refreshToken(
   };
 }
 
-  async changePassword() {
-    // TODO:
-    // Verify Current Password
-    // Update Password
+  async changePassword(
+  dto: ChangePasswordDto,
+) {
+  const user =
+    await this.authRepository.findUserByIdWithPassword(
+      dto.userId,
+    );
 
-    return {
-      success: true,
-    };
+  if (!user) {
+    throw new NotFoundException(
+      'User not found.',
+    );
   }
+
+  const isPasswordValid =
+    await this.passwordService.comparePassword(
+      dto.currentPassword,
+      user.passwordHash,
+    );
+
+  if (!isPasswordValid) {
+    throw new UnauthorizedException(
+      'Current password is incorrect.',
+    );
+  }
+
+  const passwordHash =
+    await this.passwordService.hashPassword(
+      dto.newPassword,
+    );
+
+  await this.authRepository.updatePassword(
+    dto.userId,
+    passwordHash,
+  );
+
+  return {
+    success: true,
+    message: 'Password changed successfully.',
+  };
 }
