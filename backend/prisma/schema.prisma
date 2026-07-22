@@ -73,5 +73,7 @@ model Business {
 
   owner         User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 
-  @@map("businesses")
+ @@index([ownerId])  
+ @@map("businesses")
+
 }
