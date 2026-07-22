@@ -46,3 +46,73 @@ async findCustomerByMobile(
     },
   });
 }
+async updateCustomer(
+  customerId: string,
+  ownerId: string,
+  dto: UpdateCustomerDto,
+) {
+  return this.prisma.customer.update({
+    where: {
+      id: customerId,
+      ownerId,
+    },
+    data: dto,
+  });
+}
+
+async deleteCustomer(
+  customerId: string,
+  ownerId: string,
+) {
+  return this.prisma.customer.delete({
+    where: {
+      id: customerId,
+      ownerId,
+    },
+  });
+}
+
+async getCustomer(
+  customerId: string,
+  ownerId: string,
+) {
+  return this.prisma.customer.findFirst({
+    where: {
+      id: customerId,
+      ownerId,
+    },
+  });
+}
+
+async getCustomers(
+  ownerId: string,
+  query: CustomerQueryDto,
+) {
+  return this.prisma.customer.findMany({
+    where: {
+      ownerId,
+      ...(query.search
+        ? {
+            OR: [
+              {
+                name: {
+                  contains: query.search,
+                  mode: 'insensitive',
+                },
+              },
+              {
+                mobileNumber: {
+                  contains: query.search,
+                },
+              },
+            ],
+          }
+        : {}),
+    },
+    skip: query.skip,
+    take: query.take,
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+}
