@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
-
+import { CustomerModule } from './modules/customer/customer.module';
 @Module({
   imports: [
+   CustomerModule,
+
     // Configuration Module
     // Database Module
     // Authentication Module
