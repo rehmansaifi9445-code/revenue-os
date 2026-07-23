@@ -4,6 +4,7 @@ import { BusinessModule } from './modules/business/business.module';
 import { InvoiceModule } from './modules/invoice/invoice.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
+import { PaymentModule } from './modules/payment/payment.module';
 @Module({
   imports: [
   AuthModule,
@@ -11,6 +12,7 @@ import { UserModule } from './modules/user/user.module';
   CustomerModule,
   BusinessModule,
   InvoiceModule,
+  PaymentModule,
  ]
 
     // Configuration Module
