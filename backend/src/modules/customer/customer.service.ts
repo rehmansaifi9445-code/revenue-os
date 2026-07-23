@@ -1,6 +1,7 @@
 import {
   Injectable,
   NotFoundException,
+  ConflictException,
 } from '@nestjs/common';
 
 import { CustomerRepository } from './customer.repository';
@@ -19,30 +20,40 @@ export class CustomerService {
     ownerId: string,
     dto: CreateCustomerDto,
   ) {
-    return this.customerRepository.createCustomer(
-      ownerId,
-      dto,
-    );
+    const existingCustomer =
+      await this.customerRepository.findCustomerByMobile(
+        dto.mobileNumber,
+        ownerId,
+      );
+
+    if (existingCustomer) {
+      throw new ConflictException(
+        'Customer already exists.',
+      );
+    }
+
+    const customer =
+      await this.customerRepository.createCustomer(
+        ownerId,
+        dto,
+      );
+
+    return {
+      success: true,
+      message: 'Customer created successfully.',
+      data: customer,
+    };
   }
 
-  async getCustomers(
-    ownerId: string,
-    query: CustomerQueryDto,
-  ) {
-    return this.customerRepository.getCustomers(
-      ownerId,
-      query,
-    );
-  }
-
-  async getCustomerById(
-    ownerId: string,
+  async updateCustomer(
     customerId: string,
+    ownerId: string,
+    dto: UpdateCustomerDto,
   ) {
     const customer =
-      await this.customerRepository.findCustomerById(
-        ownerId,
+      await this.customerRepository.getCustomer(
         customerId,
+        ownerId,
       );
 
     if (!customer) {
@@ -51,43 +62,83 @@ export class CustomerService {
       );
     }
 
-    return customer;
-  }
+    const updatedCustomer =
+      await this.customerRepository.updateCustomer(
+        customerId,
+        ownerId,
+        dto,
+      );
 
-  async updateCustomer(
-    ownerId: string,
-    customerId: string,
-    dto: UpdateCustomerDto,
-  ) {
-    await this.getCustomerById(
-      ownerId,
-      customerId,
-    );
-
-    return this.customerRepository.updateCustomer(
-      ownerId,
-      customerId,
-      dto,
-    );
+    return {
+      success: true,
+      message: 'Customer updated successfully.',
+      data: updatedCustomer,
+    };
   }
 
   async deleteCustomer(
-    ownerId: string,
     customerId: string,
+    ownerId: string,
   ) {
-    await this.getCustomerById(
-      ownerId,
-      customerId,
-    );
+    const customer =
+      await this.customerRepository.getCustomer(
+        customerId,
+        ownerId,
+      );
+
+    if (!customer) {
+      throw new NotFoundException(
+        'Customer not found.',
+      );
+    }
 
     await this.customerRepository.deleteCustomer(
-      ownerId,
       customerId,
+      ownerId,
     );
 
     return {
       success: true,
       message: 'Customer deleted successfully.',
+    };
+  }
+
+  async getCustomer(
+    customerId: string,
+    ownerId: string,
+  ) {
+    const customer =
+      await this.customerRepository.getCustomer(
+        customerId,
+        ownerId,
+      );
+
+    if (!customer) {
+      throw new NotFoundException(
+        'Customer not found.',
+      );
+    }
+
+    return {
+      success: true,
+      data: customer,
+    };
+  }
+
+  async getCustomers(
+    ownerId: string,
+    query: CustomerQueryDto,
+  ) {
+    const customers =
+      await this.customerRepository.getCustomers(
+        ownerId,
+        query,
+      );
+
+    return {
+      success: true,
+      count: customers.length,
+      data: customers,
     };
   }
 }
