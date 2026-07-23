@@ -136,3 +136,88 @@ model Business {
 
   @@map("customers")
 }
+  model Invoice {
+  id               String   @id @default(cuid())
+
+  businessId       String
+  customerId       String
+
+  invoiceNumber    String   @unique
+
+  status           String   @default("DRAFT")
+
+  issueDate        DateTime
+
+  dueDate          DateTime
+
+  subtotal         Decimal  @db.Decimal(18,2)
+
+  taxAmount        Decimal  @default(0) @db.Decimal(18,2)
+
+  discountAmount   Decimal  @default(0) @db.Decimal(18,2)
+
+  totalAmount      Decimal  @db.Decimal(18,2)
+
+  paidAmount       Decimal  @default(0) @db.Decimal(18,2)
+
+  balanceAmount    Decimal  @db.Decimal(18,2)
+
+  notes            String?
+
+  createdAt        DateTime @default(now())
+
+  updatedAt        DateTime @updatedAt
+
+  business Business @relation(
+    fields: [businessId],
+    references: [id],
+    onDelete: Cascade,
+  )
+
+  customer Customer @relation(
+    fields: [customerId],
+    references: [id],
+    onDelete: Cascade,
+  )
+
+  items InvoiceItem[]
+  
+  @@index([businessId])
+
+  @@index([customerId])
+
+  @@index([status])
+
+  @@map("invoices")
+}
+  model InvoiceItem {
+  id            String   @id @default(cuid())
+
+  invoiceId     String
+
+  itemName      String
+
+  description   String?
+
+  quantity      Decimal @db.Decimal(18,2)
+
+  unitPrice     Decimal @db.Decimal(18,2)
+
+  taxPercent    Decimal @default(0) @db.Decimal(5,2)
+
+  discount      Decimal @default(0) @db.Decimal(18,2)
+
+  total         Decimal @db.Decimal(18,2)
+
+  createdAt     DateTime @default(now())
+
+  invoice Invoice @relation(
+    fields: [invoiceId],
+    references: [id],
+    onDelete: Cascade,
+  )
+
+  @@index([invoiceId])
+
+  @@map("invoice_items")
+}
