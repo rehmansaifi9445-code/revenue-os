@@ -1,11 +1,11 @@
 import {
-  Body,
   Controller,
+  Post,
+  Put,
   Delete,
   Get,
+  Body,
   Param,
-  Patch,
-  Post,
   Query,
 } from '@nestjs/common';
 
@@ -21,10 +21,10 @@ export class CustomerController {
     private readonly customerService: CustomerService,
   ) {}
 
-  // TODO:
-  // JWT Authentication ke baad
-  // ownerId token se aayega.
-  private readonly ownerId = 'OWNER_ID';
+  // Temporary Owner ID
+  // JWT Auth ke baad yahan user.id aayegi
+  private readonly ownerId =
+    'TEMP_OWNER_ID';
 
   @Post()
   createCustomer(
@@ -36,6 +36,38 @@ export class CustomerController {
     );
   }
 
+  @Put(':customerId')
+  updateCustomer(
+    @Param('customerId') customerId: string,
+    @Body() dto: UpdateCustomerDto,
+  ) {
+    return this.customerService.updateCustomer(
+      customerId,
+      this.ownerId,
+      dto,
+    );
+  }
+
+  @Delete(':customerId')
+  deleteCustomer(
+    @Param('customerId') customerId: string,
+  ) {
+    return this.customerService.deleteCustomer(
+      customerId,
+      this.ownerId,
+    );
+  }
+
+  @Get(':customerId')
+  getCustomer(
+    @Param('customerId') customerId: string,
+  ) {
+    return this.customerService.getCustomer(
+      customerId,
+      this.ownerId,
+    );
+  }
+
   @Get()
   getCustomers(
     @Query() query: CustomerQueryDto,
@@ -43,38 +75,6 @@ export class CustomerController {
     return this.customerService.getCustomers(
       this.ownerId,
       query,
-    );
-  }
-
-  @Get(':id')
-  getCustomerById(
-    @Param('id') id: string,
-  ) {
-    return this.customerService.getCustomerById(
-      this.ownerId,
-      id,
-    );
-  }
-
-  @Patch(':id')
-  updateCustomer(
-    @Param('id') id: string,
-    @Body() dto: UpdateCustomerDto,
-  ) {
-    return this.customerService.updateCustomer(
-      this.ownerId,
-      id,
-      dto,
-    );
-  }
-
-  @Delete(':id')
-  deleteCustomer(
-    @Param('id') id: string,
-  ) {
-    return this.customerService.deleteCustomer(
-      this.ownerId,
-      id,
     );
   }
 }
