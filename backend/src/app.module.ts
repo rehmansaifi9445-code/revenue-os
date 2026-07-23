@@ -1,13 +1,17 @@
 import { Module } from '@nestjs/common';
 import { CustomerModule } from './modules/customer/customer.module';
 import { BusinessModule } from './modules/business/business.module';
+import { InvoiceModule } from './modules/invoice/invoice.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { UserModule } from './modules/user/user.module';
 @Module({
   imports: [
   AuthModule,
   UserModule,
   CustomerModule,
   BusinessModule,
-]
+  InvoiceModule,
+ ]
 
     // Configuration Module
     // Database Module
