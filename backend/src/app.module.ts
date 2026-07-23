@@ -1,8 +1,13 @@
 import { Module } from '@nestjs/common';
 import { CustomerModule } from './modules/customer/customer.module';
+import { BusinessModule } from './modules/business/business.module';
 @Module({
   imports: [
-   CustomerModule,
+  AuthModule,
+  UserModule,
+  CustomerModule,
+  BusinessModule,
+]
 
     // Configuration Module
     // Database Module
