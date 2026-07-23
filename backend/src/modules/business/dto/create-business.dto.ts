@@ -1,0 +1,15 @@
+name
+industry
+gstNumber
+panNumber
+email
+mobileNumber
+addressLine1
+addressLine2
+city
+state
+country
+postalCode
+currency
+timezone
+logoUrl
