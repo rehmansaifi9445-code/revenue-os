@@ -8,6 +8,7 @@ import { PaymentModule } from './modules/payment/payment.module';
 import { ReminderModule } from './modules/reminder/reminder.module';
 import { RecoveryModule } from './modules/recovery/recovery.module';
 import { NotificationModule } from './modules/notification/notification.module';
+import { ConfigurationModule } from './modules/configuration/configuration.module';
 @Module({
   imports: [
   AuthModule,
@@ -17,18 +18,14 @@ import { NotificationModule } from './modules/notification/notification.module';
   InvoiceModule,
   PaymentModule,
   ReminderModule,
+  ConfigurationModule,
   NotificationModule,
   RecoveryModule, 
 ]
 
-    // Configuration Module
+   
     // Database Module
     // Authentication Module
-    // User Module
-    // Business Module
-    // Customer Module
-    // Invoice Module
-    // Payment Module
     // Workflow Engine
     // Rule Engine
     // Decision Engine
