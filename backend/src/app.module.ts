@@ -5,6 +5,7 @@ import { InvoiceModule } from './modules/invoice/invoice.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { PaymentModule } from './modules/payment/payment.module';
+import { ReminderModule } from './modules/reminder/reminder.module';
 @Module({
   imports: [
   AuthModule,
@@ -13,7 +14,8 @@ import { PaymentModule } from './modules/payment/payment.module';
   BusinessModule,
   InvoiceModule,
   PaymentModule,
- ]
+  ReminderModule,
+]
 
     // Configuration Module
     // Database Module
