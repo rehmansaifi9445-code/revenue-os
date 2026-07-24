@@ -76,6 +76,7 @@ model Business {
  @@index([ownerId])  
  @@map("businesses")
  payments Payment[]
+ reminders Reminder[]
 }
  model Customer {
   id                String   @id @default(cuid())
@@ -173,7 +174,8 @@ model Business {
     fields: [businessId],
     references: [id],
     onDelete: Cascade,
-  )
+    reminders Reminder[]
+ )
 
   customer Customer @relation(
     fields: [customerId],
@@ -273,4 +275,44 @@ model Business {
   @@index([status])
 
   @@map("payments")
+}
+ model Reminder {
+  id            String   @id @default(cuid())
+
+  businessId    String
+  invoiceId     String
+
+  type          String
+  channel       String
+
+  status        String   @default("PENDING")
+
+  scheduledAt   DateTime
+  sentAt        DateTime?
+
+  subject       String?
+  message       String?
+
+  retryCount    Int      @default(0)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  business Business @relation(
+    fields: [businessId],
+    references: [id],
+    onDelete: Cascade,
+  )
+
+  invoice Invoice @relation(
+    fields: [invoiceId],
+    references: [id],
+    onDelete: Cascade,
+  )
+
+  @@index([businessId])
+  @@index([invoiceId])
+  @@index([status])
+
+  @@map("reminders")
 }
