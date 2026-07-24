@@ -77,6 +77,7 @@ model Business {
  @@map("businesses")
  payments Payment[]
  reminders Reminder[]
+ recoveries Recovery[]
 }
  model Customer {
   id                String   @id @default(cuid())
@@ -137,6 +138,7 @@ model Business {
 
   @@map("customers")
   payments Payment[]
+  recoveries Recovery[]
 }
   model Invoice {
   id               String   @id @default(cuid())
@@ -175,6 +177,7 @@ model Business {
     references: [id],
     onDelete: Cascade,
     reminders Reminder[]
+    recoveries Recovery[]
  )
 
   customer Customer @relation(
@@ -315,4 +318,50 @@ model Business {
   @@index([status])
 
   @@map("reminders")
+}
+ model Recovery {
+  id             String   @id @default(cuid())
+
+  businessId     String
+  customerId     String
+  invoiceId      String
+
+  stage          String
+  status         String   @default("OPEN")
+
+  assignedTo     String?
+
+  notes          String?
+
+  promiseToPay   DateTime?
+
+  closedAt       DateTime?
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  business Business @relation(
+    fields: [businessId],
+    references: [id],
+    onDelete: Cascade,
+  )
+
+  customer Customer @relation(
+    fields: [customerId],
+    references: [id],
+    onDelete: Cascade,
+  )
+
+  invoice Invoice @relation(
+    fields: [invoiceId],
+    references: [id],
+    onDelete: Cascade,
+  )
+
+  @@index([businessId])
+  @@index([customerId])
+  @@index([invoiceId])
+  @@index([status])
+
+  @@map("recoveries")
 }
