@@ -6,6 +6,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { PaymentModule } from './modules/payment/payment.module';
 import { ReminderModule } from './modules/reminder/reminder.module';
+import { RecoveryModule } from './modules/recovery/recovery.module';
 @Module({
   imports: [
   AuthModule,
@@ -15,6 +16,7 @@ import { ReminderModule } from './modules/reminder/reminder.module';
   InvoiceModule,
   PaymentModule,
   ReminderModule,
+  RecoveryModule, 
 ]
 
     // Configuration Module
