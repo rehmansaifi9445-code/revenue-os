@@ -78,6 +78,7 @@ model Business {
  payments Payment[]
  reminders Reminder[]
  recoveries Recovery[]
+ configuration Configuration?
  notifications Notification[]
 }
  model Customer {
@@ -407,4 +408,41 @@ model Notification {
   @@index([status])
 
   @@map("notifications")
+}
+model Configuration {
+  id              String   @id @default(cuid())
+
+  businessId      String   @unique
+
+  companyName     String
+
+  currency        String   @default("INR")
+
+  timezone        String   @default("Asia/Kolkata")
+
+  language        String   @default("en")
+
+  invoicePrefix   String   @default("INV")
+
+  paymentTerms    Int      @default(30)
+
+  reminderEnabled Boolean  @default(true)
+
+  recoveryEnabled Boolean  @default(true)
+
+  aiEnabled       Boolean  @default(false)
+
+  createdAt       DateTime @default(now())
+
+  updatedAt       DateTime @updatedAt
+
+  business Business @relation(
+    fields: [businessId],
+    references: [id],
+    onDelete: Cascade,
+  )
+
+  @@index([businessId])
+
+  @@map("configurations")
 }
