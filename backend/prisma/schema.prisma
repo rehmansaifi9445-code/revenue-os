@@ -80,6 +80,7 @@ model Business {
  recoveries Recovery[]
  configuration Configuration?
  notifications Notification[]
+ workflows Workflow[]
 }
  model Customer {
   id                String   @id @default(cuid())
@@ -445,4 +446,32 @@ model Configuration {
   @@index([businessId])
 
   @@map("configurations")
+}
+model Workflow {
+  id          String   @id @default(cuid())
+
+  businessId  String
+
+  name        String
+
+  trigger     String
+
+  status      String   @default("ACTIVE")
+
+  description String?
+
+  createdAt   DateTime @default(now())
+
+  updatedAt   DateTime @updatedAt
+
+  business Business @relation(
+    fields:[businessId],
+    references:[id],
+    onDelete:Cascade
+  )
+
+  @@index([businessId])
+  @@index([status])
+
+  @@map("workflows")
 }
