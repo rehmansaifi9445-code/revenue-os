@@ -10,6 +10,7 @@ import { RecoveryModule } from './modules/recovery/recovery.module';
 import { NotificationModule } from './modules/notification/notification.module';
 import { ConfigurationModule } from './modules/configuration/configuration.module';
 import { WorkflowModule } from './modules/workflow/workflow.module';
+import { EventModule } from './modules/event/event.module';
 @Module({
   imports: [
   AuthModule,
@@ -23,7 +24,8 @@ import { WorkflowModule } from './modules/workflow/workflow.module';
   NotificationModule,
   RecoveryModule, 
   WorkflowModule,
- ]
+  EventModule,
+]
 
    
     // Database Module
@@ -31,7 +33,6 @@ import { WorkflowModule } from './modules/workflow/workflow.module';
     // Rule Engine
     // Decision Engine
     // Memory Engine
-    // Event Engine
     // Automation Engine
     // Agent Engine
     // Security Engine
