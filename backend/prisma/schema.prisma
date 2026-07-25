@@ -81,6 +81,7 @@ model Business {
  configuration Configuration?
  notifications Notification[]
  workflows Workflow[]
+ events Event[]
 }
  model Customer {
   id                String   @id @default(cuid())
@@ -474,4 +475,39 @@ model Workflow {
   @@index([status])
 
   @@map("workflows")
+}
+model Event {
+  id            String   @id @default(cuid())
+
+  businessId    String
+
+  name          String
+
+  source        String
+
+  entityType    String
+
+  entityId      String
+
+  payload       Json?
+
+  status        String   @default("PENDING")
+
+  processedAt   DateTime?
+
+  createdAt     DateTime @default(now())
+
+  updatedAt     DateTime @updatedAt
+
+  business Business @relation(
+    fields: [businessId],
+    references: [id],
+    onDelete: Cascade,
+  )
+
+  @@index([businessId])
+  @@index([status])
+  @@index([entityType])
+
+  @@map("events")
 }
