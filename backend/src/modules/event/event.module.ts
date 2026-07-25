@@ -11,14 +11,47 @@ import { PrismaModule } from '../../prisma/prisma.module';
 
   controllers: [EventController],
 
-  providers: [
-    EventService,
-    EventRepository,
-  ],
+ providers: [
+  EventService,
+  EventRepository,
 
-  exports: [
-    EventService,
-    EventRepository,
-  ],
+  EventPublisher,
+  EventDispatcher,
+  EventSubscriber,
+  EventRegistry,
+
+  EventQueue,
+  EventRetryQueue,
+  EventDeadLetterQueue,
+
+  EventBus,
+  EventProcessor,
+
+  EventLogger,
+  EventMiddleware,
+  EventMetrics,
+  EventHealthMonitor,
+],
+
+exports: [
+  EventService,
+
+  EventPublisher,
+  EventDispatcher,
+  EventSubscriber,
+  EventRegistry,
+
+  EventQueue,
+  EventRetryQueue,
+  EventDeadLetterQueue,
+
+  EventBus,
+  EventProcessor,
+
+  EventLogger,
+  EventMiddleware,
+  EventMetrics,
+  EventHealthMonitor,
+], 
 })
 export class EventModule {}
