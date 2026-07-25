@@ -9,6 +9,7 @@ import { ReminderModule } from './modules/reminder/reminder.module';
 import { RecoveryModule } from './modules/recovery/recovery.module';
 import { NotificationModule } from './modules/notification/notification.module';
 import { ConfigurationModule } from './modules/configuration/configuration.module';
+import { WorkflowModule } from './modules/workflow/workflow.module';
 @Module({
   imports: [
   AuthModule,
@@ -21,12 +22,12 @@ import { ConfigurationModule } from './modules/configuration/configuration.modul
   ConfigurationModule,
   NotificationModule,
   RecoveryModule, 
-]
+  WorkflowModule,
+ ]
 
    
     // Database Module
     // Authentication Module
-    // Workflow Engine
     // Rule Engine
     // Decision Engine
     // Memory Engine
