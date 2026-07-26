@@ -511,3 +511,26 @@ model Event {
 
   @@map("events")
 }
+model Rule {
+  id          String      @id @default(uuid())
+
+  businessId  String
+
+  name        String
+
+  description String?
+
+  ruleType    String
+
+  condition   Json
+
+  action      Json
+
+  priority    Int         @default(1)
+
+  isActive    Boolean     @default(true)
+
+  createdAt   DateTime    @default(now())
+
+  updatedAt   DateTime    @updatedAt
+}
