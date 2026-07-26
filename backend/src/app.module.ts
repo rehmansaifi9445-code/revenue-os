@@ -11,6 +11,7 @@ import { NotificationModule } from './modules/notification/notification.module';
 import { ConfigurationModule } from './modules/configuration/configuration.module';
 import { WorkflowModule } from './modules/workflow/workflow.module';
 import { EventModule } from './modules/event/event.module';
+import { DecisionModule } from './modules/decision/decision.module';
 @Module({
   imports: [
   AuthModule,
@@ -25,6 +26,7 @@ import { EventModule } from './modules/event/event.module';
   RecoveryModule, 
   WorkflowModule,
   EventModule,
+  DecisionModule,
 ]
 
    
