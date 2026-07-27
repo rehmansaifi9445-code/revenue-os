@@ -534,3 +534,30 @@ model Rule {
 
   updatedAt   DateTime    @updatedAt
 }
+model Automation {
+  id             String   @id @default(cuid())
+
+  businessId     String
+
+  automationType String
+
+  input          Json
+
+  output         Json?
+
+  status         String
+
+  isActive       Boolean  @default(true)
+
+  createdAt      DateTime @default(now())
+
+  updatedAt      DateTime @updatedAt
+
+  business Business @relation(fields: [businessId], references: [id])
+
+  @@index([businessId])
+
+  @@index([automationType])
+
+  @@index([status])
+}
