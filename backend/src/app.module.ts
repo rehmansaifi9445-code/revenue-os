@@ -36,10 +36,7 @@ import { AutomationModule } from './modules/automation/automation.module';
    
     // Database Module
     // Authentication Module
-    // Rule Engine
-    // Decision Engine
     // Memory Engine
-    // Automation Engine
     // Agent Engine
     // Security Engine
     // Audit Engine
