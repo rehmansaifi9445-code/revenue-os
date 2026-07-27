@@ -561,3 +561,32 @@ model Automation {
 
   @@index([status])
 }
+model Scheduler {
+
+  id String @id @default(cuid())
+
+  businessId String
+
+  automationId String?
+
+  jobType String
+
+  executeAt DateTime
+
+  status String
+
+  retryCount Int @default(0)
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  @@index([businessId])
+
+  @@index([executeAt])
+
+  @@index([status])
+
+}
