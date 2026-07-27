@@ -13,6 +13,7 @@ import { WorkflowModule } from './modules/workflow/workflow.module';
 import { EventModule } from './modules/event/event.module';
 import { DecisionModule } from './modules/decision/decision.module';
 import { RuleModule } from './modules/rule/rule.module';
+import { AutomationModule } from './modules/automation/automation.module';
 @Module({
   imports: [
   AuthModule,
@@ -29,6 +30,7 @@ import { RuleModule } from './modules/rule/rule.module';
   EventModule,
   DecisionModule,
   RuleModule,  
+  AutomationModule,
 ]
 
    
