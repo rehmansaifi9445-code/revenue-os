@@ -14,6 +14,7 @@ import { EventModule } from './modules/event/event.module';
 import { DecisionModule } from './modules/decision/decision.module';
 import { RuleModule } from './modules/rule/rule.module';
 import { AutomationModule } from './modules/automation/automation.module';
+import { SchedulerModule } from './modules/scheduler/scheduler.module';
 @Module({
   imports: [
   AuthModule,
@@ -29,8 +30,9 @@ import { AutomationModule } from './modules/automation/automation.module';
   WorkflowModule,
   EventModule,
   DecisionModule,
-  RuleModule,  
+  RuleModule,                   
   AutomationModule,
+  SchedulerModule,
 ]
 
    
