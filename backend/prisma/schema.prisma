@@ -617,3 +617,36 @@ model Analytics {
   @@index([recordedAt])
 
 }
+model Monitoring {
+
+  id String @id @default(cuid())
+
+  businessId String
+
+  service String
+
+  status String
+
+  responseTime Float
+
+  cpuUsage Float?
+
+  memoryUsage Float?
+
+  metadata Json?
+
+  checkedAt DateTime
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  @@index([businessId])
+
+  @@index([service])
+
+  @@index([status])
+
+  @@index([checkedAt])
+
+}
