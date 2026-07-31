@@ -17,6 +17,7 @@ import { AutomationModule } from './modules/automation/automation.module';
 import { SchedulerModule } from './modules/scheduler/scheduler.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { MonitoringModule } from './modules/monitoring/monitoring.module';
+import { SecurityModule } from './modules/security/security.module';
 @Module({
   imports: [
   AuthModule,
@@ -37,8 +38,11 @@ import { MonitoringModule } from './modules/monitoring/monitoring.module';
   SchedulerModule,
   AnalyticsModule,
   MonitoringModule,
- ]
+  SecurityModule,
+ ] 
+    
 
+    
    
     // Database Module
     // Authentication Module
