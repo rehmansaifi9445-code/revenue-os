@@ -590,3 +590,30 @@ model Scheduler {
   @@index([status])
 
 }
+model Analytics {
+
+  id String @id @default(cuid())
+
+  businessId String
+
+  module String
+
+  metricName String
+
+  metricValue Float
+
+  recordedAt DateTime
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  @@index([businessId])
+
+  @@index([module])
+
+  @@index([metricName])
+
+  @@index([recordedAt])
+
+}
