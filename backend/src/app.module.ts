@@ -16,6 +16,7 @@ import { RuleModule } from './modules/rule/rule.module';
 import { AutomationModule } from './modules/automation/automation.module';
 import { SchedulerModule } from './modules/scheduler/scheduler.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
+import { MonitoringModule } from './modules/monitoring/monitoring.module';
 @Module({
   imports: [
   AuthModule,
@@ -35,7 +36,8 @@ import { AnalyticsModule } from './modules/analytics/analytics.module';
   AutomationModule,
   SchedulerModule,
   AnalyticsModule,
-]
+  MonitoringModule,
+ ]
 
    
     // Database Module
