@@ -650,3 +650,36 @@ model Monitoring {
   @@index([checkedAt])
 
 }
+model Security {
+
+  id String @id @default(cuid())
+
+  businessId String
+
+  resource String
+
+  action String
+
+  actorId String
+
+  status String
+
+  ipAddress String?
+
+  userAgent String?
+
+  metadata Json?
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  @@index([businessId])
+
+  @@index([resource])
+
+  @@index([actorId])
+
+  @@index([status])
+
+}
