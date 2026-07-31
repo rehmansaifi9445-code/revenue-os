@@ -15,6 +15,7 @@ import { DecisionModule } from './modules/decision/decision.module';
 import { RuleModule } from './modules/rule/rule.module';
 import { AutomationModule } from './modules/automation/automation.module';
 import { SchedulerModule } from './modules/scheduler/scheduler.module';
+import { AnalyticsModule } from './modules/analytics/analytics.module';
 @Module({
   imports: [
   AuthModule,
@@ -33,6 +34,7 @@ import { SchedulerModule } from './modules/scheduler/scheduler.module';
   RuleModule,                   
   AutomationModule,
   SchedulerModule,
+  AnalyticsModule,
 ]
 
    
